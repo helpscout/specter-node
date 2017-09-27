@@ -1,4 +1,5 @@
 {
+  "__specter": "Sample customer record",
   "id": "@randomDigitNotNull@",
   "fname": "@firstName@",
   "lname": "@lastName@",

@@ -4,5 +4,5 @@ export default {
   city: faker.address.city,
   country: faker.address.country,
   postcode: faker.address.zipCode,
-  stateAbbr: faker.address.stateAbbr,
+  stateAbbr: faker.address.stateAbbr
 }

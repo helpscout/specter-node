@@ -1,8 +1,7 @@
-import faker from 'faker'
 import FakerMethods from './constants/FakerMethods'
 
 const stripVariableToken = (variable) => {
-  return variable.replace(/\@/g, '')
+  return variable.replace(/@/g, '')
 }
 
 const remapToFaker = (specs) => {
@@ -14,7 +13,7 @@ const remapToFaker = (specs) => {
       newSpecs[key] = remapToFaker(value)
     } else {
       const method = stripVariableToken(value)
-      newSpecs[key] = FakerMethods[method]()
+      newSpecs[key] = value.indexOf('@') === 0 ? FakerMethods[method]() : value
     }
   })
 

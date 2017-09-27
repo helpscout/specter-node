@@ -7,5 +7,5 @@ export default {
   ...Address,
   ...Company,
   ...Name,
-  ...Random,
+  ...Random
 }
