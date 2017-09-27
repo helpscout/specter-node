@@ -1,13 +1,16 @@
 {
-  "name": "@helpscout/specterjs",
+  "name": "@helpscout/specter",
   "version": "0.0.1",
-  "description": "",
+  "private": false,
+  "description": "JSON API Mocking and Testing for Node",
   "main": "index.js",
   "scripts": {
     "start": "babel-node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "authors": [
+    "ItsJonQ <itsjonq@gmail.com>"
+  ],
   "license": "MIT",
   "dependencies": {
     "config": "^1.26.2",
