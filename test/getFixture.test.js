@@ -22,7 +22,7 @@ describe('getFixture', () => {
     expect(getFixture('nope')).to.be.false()
   })
 
-  it('should match data structure of spec file', () => {
+  it('should parse specter @vars@', () => {
     const fixture = getFixture('user')
 
     Object.keys(fixture).forEach(key => {
