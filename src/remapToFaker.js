@@ -1,9 +1,13 @@
 import FakerMethods from './constants/FakerMethods'
+import { stripVariableToken } from './utils/strings'
 
-const stripVariableToken = (variable) => {
-  return variable.replace(/@/g, '')
-}
-
+/**
+  * Remaps PHP's faker methods to faker.js methods
+  *
+  * @param object   $specs   specter specs JSON
+  *
+  * @return object
+  */
 const remapToFaker = (specs) => {
   const newSpecs = Object.assign({}, specs)
 
