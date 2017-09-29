@@ -29,4 +29,10 @@ describe('assertResponseContent', () => {
   it('should return false with an invalid spec response', () => {
     expect(assertResponseContent(badResponse('user'), 'user')).to.be.false()
   })
+
+  describe('Arrays', () => {
+    it('should correctly handle specs with array values', () => {
+      expect(assertResponseContent(response('customer.test'), 'customer.test')).to.be.true()
+    })
+  })
 })

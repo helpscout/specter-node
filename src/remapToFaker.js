@@ -1,5 +1,4 @@
-import FakerMethods from './constants/FakerMethods'
-import { isSpecterVariable, stripVariableToken } from './utils/variable'
+import { getFakerDataFromVariables } from './utils/variable'
 import { warn } from './utils/log'
 
 /**
@@ -20,11 +19,10 @@ const remapToFaker = (specs) => {
     const value = specs[key]
     /* istanbul ignore next */
     // Nested objects is tested. Istanbul just isn't picking it up
-    if (typeof value === 'object') {
+    if (typeof value === 'object' && !Array.isArray(value)) {
       newSpecs[key] = remapToFaker(value)
     } else {
-      const method = stripVariableToken(value)
-      newSpecs[key] = isSpecterVariable(value) ? FakerMethods[method]() : value
+      newSpecs[key] = getFakerDataFromVariables(value)
     }
 
     return newSpecs

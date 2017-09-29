@@ -1,0 +1,6 @@
+{
+  "__specter": "Sample customer record",
+  "id": "@randomDigitNotNull@",
+  "name": "@firstName@",
+  "other": ["@company@", "@jobTitle@"]
+}

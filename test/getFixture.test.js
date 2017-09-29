@@ -1,5 +1,6 @@
 import { getFixture } from '../src/'
 import { getSpecsFromFile } from '../src/utils/file'
+import { isSpecterVariable } from '../src/utils/variable'
 
 describe('getFixture', () => {
   it('should return an object from a valid specter file', () => {
@@ -50,5 +51,18 @@ describe('getFixture', () => {
     const specs = getSpecsFromFile('user')
 
     expect(fixture[Object.keys(fixture)[0]]).to.equal(specs[Object.keys(specs)[0]])
+  })
+
+  describe('Array', () => {
+    it('should be able to handle array of variables', () => {
+      const specs = getSpecsFromFile('customer.test')
+      const fixture = getFixture('customer.test')
+      const o = fixture.other
+
+      expect(specs.other.length).to.equal(o.length)
+      expect(o).to.be.an('array')
+      expect(isSpecterVariable(o[0])).to.be.false()
+      expect(isSpecterVariable(o[1])).to.be.false()
+    })
   })
 })

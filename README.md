@@ -33,7 +33,8 @@ Specter JSON file that defines your new endpoint. This is a Specter JSON file (`
     "state": "@stateAbbr@",
     "zip": "@postcode@",
     "country": "@country@"
-  }
+  },
+  "emails": ["@companyEmail@", "@freeEmail@", "@email@"]
 }
 ```
 
@@ -49,19 +50,24 @@ getFixture('customer')
 The output will be:
 ```json
 {
-   "__specter":"Sample customer record",
-   "id":6,
-   "fname":"Glenda",
-   "lname":"Trantow",
-   "company":"Kerluke, Rodriguez and Wisoky",
-   "jobTitle":"Power Generating Plant Operator",
-   "background":"Configurable multi-state standardization",
-   "address":{
-      "city":"Georgiannachester",
-      "state":"TX",
-      "zip":"89501",
-      "country":"Afghanistan"
-   }
+  "__specter":"Sample customer record",
+  "id":6,
+  "fname":"Glenda",
+  "lname":"Trantow",
+  "company":"Kerluke, Rodriguez and Wisoky",
+  "jobTitle":"Power Generating Plant Operator",
+  "background":"Configurable multi-state standardization",
+  "address":{
+     "city":"Georgiannachester",
+     "state":"TX",
+     "zip":"89501",
+     "country":"Afghanistan"
+  },
+  "emails":[
+    "dward@friesen.org",
+    "nwisozk@gmail.com",
+    "juliet.dooley@yahoo.com"
+  ]
 }
 ```
 
@@ -99,3 +105,4 @@ describe('Customer Endpoint', () => {
 
 * [ ] Map **all** the methods from Faker.js to the method names from the PHP library
 * [ ] Add custom formatter support
+* [ ] Add Faker filters using `|`

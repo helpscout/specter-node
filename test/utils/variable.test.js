@@ -1,4 +1,4 @@
-import { isSpecterVariable, stripVariableToken } from '../../src/utils/variable'
+import { isSpecterVariable, getFakerDataFromVariables, stripVariableToken } from '../../src/utils/variable'
 
 describe('isSpecterVariable', () => {
   it('should return false for non variables', () => {
@@ -29,5 +29,30 @@ describe('stripVariableToken', () => {
     expect(stripVariableToken('@yup@')).to.equal('yup')
     expect(stripVariableToken('@name@email@')).to.equal('name@email')
     expect(stripVariableToken('@@name@email@@')).to.equal('@name@email@')
+  })
+})
+
+describe('getFakerDataFromVariables', () => {
+  it('should returm false if invalid argument', () => {
+    expect(getFakerDataFromVariables()).to.equal(undefined)
+    expect(getFakerDataFromVariables(123)).to.equal(123)
+    expect(getFakerDataFromVariables({ name: '@firstName@' })).to.be.an('object')
+  })
+
+  it('should handle array variables', () => {
+    const spec = {
+      name: ['@firstName@', '@lastName@']
+    }
+    const fixture = getFakerDataFromVariables(spec.name)
+
+    expect(fixture).to.be.an('array')
+    expect(fixture[0]).to.not.equal('firstName')
+    expect(fixture[0]).to.not.equal('@firstName')
+    expect(fixture[0]).to.not.equal('@firstName@')
+    expect(fixture[0]).to.not.equal('@firstName|')
+    expect(fixture[1]).to.not.equal('lastName')
+    expect(fixture[1]).to.not.equal('@lastName')
+    expect(fixture[1]).to.not.equal('@lastName@')
+    expect(fixture[1]).to.not.equal('@lastName|')
   })
 })
