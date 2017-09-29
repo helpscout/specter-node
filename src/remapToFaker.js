@@ -1,27 +1,34 @@
 import FakerMethods from './constants/FakerMethods'
-import { stripVariableToken } from './utils/strings'
+import { isSpecterVariable, stripVariableToken } from './utils/variable'
+import { warn } from './utils/log'
 
 /**
-  * Remaps PHP's faker methods to faker.js methods
-  *
-  * @param object   $specs   specter specs JSON
-  *
-  * @return object
-  */
+ * Remaps PHP's faker methods to faker.js methods
+ *
+ * @param object   $specs   specter specs JSON
+ *
+ * @warns specs must be an object
+ * @return object
+ */
 const remapToFaker = (specs) => {
-  const newSpecs = Object.assign({}, specs)
+  if (typeof specs !== 'object') {
+    warn('remapToFaker(): Argument must be an object.')
+    return false
+  }
 
-  Object.keys(specs).map(key => {
+  return Object.keys(specs).reduce((newSpecs, key) => {
     const value = specs[key]
+    /* istanbul ignore next */
+    // Nested objects is tested. Istanbul just isn't picking it up
     if (typeof value === 'object') {
       newSpecs[key] = remapToFaker(value)
     } else {
       const method = stripVariableToken(value)
-      newSpecs[key] = value.indexOf('@') === 0 ? FakerMethods[method]() : value
+      newSpecs[key] = isSpecterVariable(value) ? FakerMethods[method]() : value
     }
-  })
 
-  return newSpecs
+    return newSpecs
+  }, Object.assign({}, specs))
 }
 
 export default remapToFaker

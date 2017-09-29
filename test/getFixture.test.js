@@ -35,7 +35,7 @@ describe('getFixture', () => {
 
   it('should match data structure of spec file', () => {
     const fixture = getFixture('user')
-    const specs = getSpecsFromFile('./specs/user.json')
+    const specs = getSpecsFromFile('user')
 
     Object.keys(fixture).forEach(key => {
       const val = fixture[key]
@@ -47,7 +47,7 @@ describe('getFixture', () => {
 
   it('should not get faker data for non @vars@', () => {
     const fixture = getFixture('user')
-    const specs = getSpecsFromFile('./specs/user.json')
+    const specs = getSpecsFromFile('user')
 
     expect(fixture[Object.keys(fixture)[0]]).to.equal(specs[Object.keys(specs)[0]])
   })

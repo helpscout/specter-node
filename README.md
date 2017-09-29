@@ -33,8 +33,7 @@ Specter JSON file that defines your new endpoint. This is a Specter JSON file (`
     "state": "@stateAbbr@",
     "zip": "@postcode@",
     "country": "@country@"
-  },
-  "emails": ["@companyEmail@", "@freeEmail@", "@email@" ]
+  }
 }
 ```
 
@@ -62,11 +61,41 @@ The output will be:
       "state":"TX",
       "zip":"89501",
       "country":"Afghanistan"
-   },
-   "emails":[
-      "dward@friesen.org",
-      "nwisozk@gmail.com",
-      "juliet.dooley@yahoo.com"
-   ]
+   }
 }
 ```
+
+Write a unit test for the endpoint to confirm that it's meeting the spec, and
+then implement the endpoint for real. Below is an example with a Mocha/Chai
+styled test. However, this can be used with any test runner as the assert
+helper returns a `true`/`false`.
+
+**Mocha Example**
+```js
+import { assertResponseContent } from '@helpscout/specter'
+
+describe('Customer Endpoint', () => {
+  it('should match the spec', () => {
+    const response = someRouter.getResponse('/api/v1/customer/37')
+    expect(assertResponseContent(response, 'customer').to.be.true
+  })
+})
+```
+
+**Jest Example**
+```js
+import { assertResponseContent } from '@helpscout/specter'
+
+describe('Customer Endpoint', () => {
+  test('should match the spec', () => {
+    const response = someRouter.getResponse('/api/v1/customer/37')
+    expect(assertResponseContent(response, 'customer').toBeTruthy()
+  })
+})
+```
+
+
+## TODO
+
+* [ ] Map **all** the methods from Faker.js to the method names from the PHP library
+* [ ] Add custom formatter support
