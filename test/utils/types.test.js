@@ -1,4 +1,4 @@
-import { isCorrectType } from '../../src/utils/types'
+import { isCorrectType, getTypeMatchesFromArray } from '../../src/utils/types'
 
 describe('isCorrectType', () => {
   it('should return false if arguments are invalid', () => {
@@ -32,5 +32,33 @@ describe('isCorrectType', () => {
     expect(isCorrectType(false, ['string', 'boolean'])).to.be.true()
     expect(isCorrectType(true, ['string', 'boolean'])).to.be.true()
     expect(isCorrectType(true, ['boolean'])).to.be.true()
+  })
+})
+
+describe('getTypeMatchesFromArray', () => {
+  it('should return false if arguments are invalid', () => {
+    expect(getTypeMatchesFromArray()).to.be.false()
+    expect(getTypeMatchesFromArray(true)).to.be.false()
+    expect(getTypeMatchesFromArray('variable')).to.be.false()
+  })
+
+  it('should remap a list of variables', () => {
+    const variables = ['@firstName@', '@lastName@']
+    const o = getTypeMatchesFromArray(variables)
+
+    expect(o.length).to.equal(variables.length)
+    expect(o).to.be.an('array')
+    expect(o[0]).to.equal('string')
+    expect(o[1]).to.equal('string')
+  })
+
+  it('should determine type if not Specter variable', () => {
+    const variables = ['nope', 0, '@firstName@', '@lastName@']
+    const o = getTypeMatchesFromArray(variables)
+
+    expect(o.length).to.equal(variables.length)
+    expect(o).to.be.an('array')
+    expect(o[0]).to.equal('string')
+    expect(o[1]).to.equal('number')
   })
 })

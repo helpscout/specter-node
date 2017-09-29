@@ -1,8 +1,6 @@
-import FakerTypes from './constants/FakerTypes'
 import { getSpecsFromFile } from './utils/file'
-import { isSpecterVariable, stripVariableToken } from './utils/variable'
 import { flattenObjectValuesToArray } from './utils/objects'
-import { isCorrectType } from './utils/types'
+import { isCorrectType, getTypeMatchesFromArray } from './utils/types'
 import { warn } from './utils/log'
 
 /**
@@ -34,8 +32,7 @@ const assertResponseContent = (response, spec) => {
 
   if (a.length !== b.length) return false
 
-  const types = b.map(o => isSpecterVariable(o) ? FakerTypes[stripVariableToken(o)] : typeof o)
-
+  const types = getTypeMatchesFromArray(b)
   const assert = a.map((o, index) => isCorrectType(o, types[index]))
 
   return !assert.filter(a => !a).length

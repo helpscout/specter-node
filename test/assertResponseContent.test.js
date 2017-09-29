@@ -25,4 +25,8 @@ describe('assertResponseContent', () => {
   it('should return false with an invalid spec response', () => {
     expect(assertResponseContent(badResponse('user'), 'user')).to.be.false()
   })
+
+  it('should return false with an invalid spec response', () => {
+    expect(assertResponseContent(badResponse('user'), 'user')).to.be.false()
+  })
 })
